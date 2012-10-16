@@ -10,6 +10,7 @@
 
 @interface MCCObjectMapper : NSObject
 
+@property (copy, nonatomic) id(^preValues)(id);
 @property (copy, nonatomic) id(^postValues)(id);
 
 + (id)mapper;

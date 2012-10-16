@@ -14,7 +14,7 @@
 @end
 
 @implementation MCCObjectMapper
-@synthesize mappings, postValues;
+@synthesize mappings, postValues, preValues;
 
 + (id)mapperWithMappings:(NSDictionary *)theMappings {
   MCCObjectMapper * om = [[self alloc]init];
@@ -42,6 +42,7 @@
 
 - (void)dealloc {
   self.postValues = nil;
+  self.preValues = nil;
   self.mappings = nil;
   [super dealloc];
 }
@@ -122,6 +123,10 @@
       value = [object valueForKeyPath:key];
     } else {
       value = [object valueForKey:key];
+    }
+    
+    if (preValues) {
+      value = preValues(value);
     }
     
     // Process the value
